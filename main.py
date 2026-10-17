@@ -3,6 +3,10 @@ import json
 from functions import *
 
 estoque = {}
+file = input("Digite o nome do arquivo:\n> ") + ".json"
+
+with open(file, 'r', encoding="utf-8") as arquivo:
+    estoque = json.load(arquivo)
 
 while True:
     print("Escolha uma opção".center(50, "="))
@@ -14,4 +18,4 @@ while True:
     menu = input("\n> ")
     
     if menu == "1":
-        carregar_arquivo(estoque)
+        carregar_arquivo(estoque, file)

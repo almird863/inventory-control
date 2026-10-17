@@ -1,8 +1,7 @@
 import os
 import json
 
-def carregar_arquivo(var):
-    file = input("Digite o nome do arquivo:\n> ") + ".json"
+def carregar_arquivo(dict, file):
     if os.path.exists(f"{file}"):
         print("ATENÇÃO: Arquivo já existe".center(50, "="))
         print("Editar mesmo assim?".center(50))
@@ -15,11 +14,12 @@ def carregar_arquivo(var):
         elif answer == "n":
             file = input("Digite o nome do novo arquivo:\n> ") + ".json"
             with open(file, 'w', encoding="utf-8") as arquivo:
-                json.dump(var, arquivo)
+                json.dump(dict, arquivo)
                 return print("Arquivo criado com sucesso".center(50))
     else:
         with open(file, 'w', encoding="utf-8") as arquivo:
-            json.dump(var, arquivo)
+            json.dump(dict, arquivo)
             return print("Arquivo criado com sucesso".center(50))
 
-def adicionar_produto()
+# def adicionar_produto(file):
+#     if os.path.exists(f"{file}"):

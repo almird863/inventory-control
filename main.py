@@ -8,7 +8,7 @@ file = input("Digite o nome do arquivo:\n> ") + ".json"
 #                        Funções
 ############################################################
 
-def rotina():
+def rotina(estoque, file):
     try:
         with open(file, 'r', encoding="utf-8") as arquivo:
             estoque = json.load(arquivo)
@@ -17,8 +17,8 @@ def rotina():
         print("(s/n)".center(50))
         ans = input("> ")
         if ans == "s":
-            with open(file, 'w') as arquivo:
-                json.dump(estoque, arquivo)
+            with open(file, 'w', encoding="utf-8") as arquivo:
+                json.dump(estoque, arquivo, indent=4)
 
 def carregar_arquivo(estoque, file):
     if os.path.exists(f"{file}"):
@@ -116,13 +116,18 @@ def remover_produto(estoque, file):
             print("\n\33[31mOpção inválida.\33[0m")
             adicionar_produto(estoque, file)
 
-
+def visualizar_estoque(estoque):
+    try:
+        for i, g in estoque.items():
+            print(f"|| Item: \33[32m{i}\33[0m || Quantidade: \33[32m{g}\33[0m")
+    except Exception as e:
+        print(e)
 
 ############################################################
 #                         Código
 ############################################################
 
-rotina()
+rotina(estoque, file)
 
 while True:
     print("Escolha uma opção".center(50, "="))
@@ -138,5 +143,9 @@ while True:
         adicionar_produto(estoque, file)
     elif menu == "3":
         remover_produto(estoque, file)
+    elif menu == "4":
+        visualizar_estoque(estoque)
+    else:
+        print("\n\33[31mDigite uma opção válida.\33[31m\n")
         
         

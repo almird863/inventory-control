@@ -160,6 +160,6 @@ while True:
     elif menu == "4":
         visualizar_estoque(file)
     else:
-        print("\n\33[31mDigite uma opção válida.\33[31m\n")
+        print("\n\33[31mDigite uma opção válida.\33[0m\n")
         
         

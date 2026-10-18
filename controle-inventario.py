@@ -132,8 +132,12 @@ def visualizar_estoque(file):
     try:
         with open(file, 'r') as arquivo:
             estoque = json.load(arquivo)
+            print()
+            print()
             for i, g in estoque.items():
                 print(f"|| Item: \33[32m{i}\33[0m || Quantidade: \33[32m{g}\33[0m")
+            print()
+            print()
     except Exception as e:
         print(e)
 

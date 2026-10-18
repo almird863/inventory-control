@@ -53,10 +53,13 @@ def adicionar_produto(estoque, file):
             try:
                 nome = input("\nDigite o nome do produto:\n> ").lower()
                 quantidade = int(input("\nDigite a quantidade disponível:\n> "))
-                estoque[nome] = quantidade
-                with open(file, 'w') as arquivo:
-                    json.dump(estoque, arquivo, indent=4)
-                    print("\n\33[32mArquivo atualizado com sucesso.\33[0m\n")
+                if nome != "":
+                    estoque[nome] = quantidade
+                    with open(file, 'w') as arquivo:
+                        json.dump(estoque, arquivo, indent=4)
+                        print("\n\33[32mArquivo atualizado com sucesso.\33[0m\n")
+                else:
+                    print("\n\33[31mDigite um nome válido.\33[0m\n")
             except Exception as e:
                 print(e)
 
@@ -65,14 +68,17 @@ def adicionar_produto(estoque, file):
                 for i, g in estoque.items():
                     print(f"Item: {i} || Quant: {g}")
                 nome = input("\nDigite o nome do produto:\n> ").lower()
-                if nome in estoque:
-                    quantidade = int(input("\nDigite a quantidade para adicionar:\n> "))
-                    estoque[nome] += quantidade
-                    with open(file, 'w') as arquivo:
-                        json.dump(estoque, arquivo, indent=4)
-                        print("\n\33[32mArquivo atualizado com sucesso.\33[0m\n")
+                if nome != "":
+                    if nome in estoque:
+                        quantidade = int(input("\nDigite a quantidade para adicionar:\n> "))
+                        estoque[nome] += quantidade
+                        with open(file, 'w') as arquivo:
+                            json.dump(estoque, arquivo, indent=4)
+                            print("\n\33[32mArquivo atualizado com sucesso.\33[0m\n")
+                    else:
+                        print("\n\33[31mProduto precisa estar no estoque\33[0m\n")
                 else:
-                    print("\n\33[31mProduto precisa estar no estoque\33[0m\n")
+                    print("\n\33[31mDigite um nome válido.\33[0m\n")
             except Exception as e:
                 print(e)
         
@@ -89,10 +95,13 @@ def remover_produto(estoque, file):
         if menu_estoque == "1":
             try:
                 nome = input("\nDigite o nome do produto:\n> ").lower()
-                del estoque[nome]
-                with open(file, 'w') as arquivo:
-                    json.dump(estoque, arquivo, indent=4)
-                    print("\n\33[32mArquivo atualizado com sucesso.\33[0m\n")
+                if nome != "":
+                    del estoque[nome]
+                    with open(file, 'w') as arquivo:
+                        json.dump(estoque, arquivo, indent=4)
+                        print("\n\33[32mArquivo atualizado com sucesso.\33[0m\n")
+                else:
+                    print("\n\33[31mDigite um nome válido.\33[0m\n")
             except Exception as e:
                 print(e)
 
@@ -101,14 +110,17 @@ def remover_produto(estoque, file):
                 for i, g in estoque.items():
                     print(f"Item: {i} || Quant: {g}")
                 nome = input("\nDigite o nome do produto:\n> ").lower()
-                if nome in estoque:
-                    quantidade = int(input("\nDigite a quantidade para remover:\n> "))
-                    estoque[nome] -= quantidade
-                    with open(file, 'w') as arquivo:
-                        json.dump(estoque, arquivo, indent=4)
-                        print("\n\33[32mArquivo atualizado com sucesso.\33[0m\n")
+                if nome != "":
+                    if nome in estoque:
+                        quantidade = int(input("\nDigite a quantidade para remover:\n> "))
+                        estoque[nome] -= quantidade
+                        with open(file, 'w') as arquivo:
+                            json.dump(estoque, arquivo, indent=4)
+                            print("\n\33[32mArquivo atualizado com sucesso.\33[0m\n")
+                    else:
+                        print("\n\33[31mProduto precisa estar no estoque\33[0m\n")
                 else:
-                    print("\n\33[31mProduto precisa estar no estoque\33[0m\n")
+                    print("\n\33[31mDigite um nome válido.\33[0m\n")
             except Exception as e:
                 print(e)
         
@@ -116,10 +128,12 @@ def remover_produto(estoque, file):
             print("\n\33[31mOpção inválida.\33[0m")
             adicionar_produto(estoque, file)
 
-def visualizar_estoque(estoque):
+def visualizar_estoque(file):
     try:
-        for i, g in estoque.items():
-            print(f"|| Item: \33[32m{i}\33[0m || Quantidade: \33[32m{g}\33[0m")
+        with open(file, 'r') as arquivo:
+            estoque = json.load(arquivo)
+            for i, g in estoque.items():
+                print(f"|| Item: \33[32m{i}\33[0m || Quantidade: \33[32m{g}\33[0m")
     except Exception as e:
         print(e)
 
@@ -144,7 +158,7 @@ while True:
     elif menu == "3":
         remover_produto(estoque, file)
     elif menu == "4":
-        visualizar_estoque(estoque)
+        visualizar_estoque(file)
     else:
         print("\n\33[31mDigite uma opção válida.\33[31m\n")
         

@@ -23,6 +23,9 @@ def carregar_arquivo(dict, file):
             with open(file, 'w', encoding="utf-8") as arquivo:
                 json.dump(dict, arquivo)
                 return print("Arquivo criado com sucesso".center(50))
+        else:
+            print("\n\33[31mOpção inválida.\33[0m")
+            carregar_arquivo(estoque, file)
     else:
         with open(file, 'w', encoding="utf-8") as arquivo:
             json.dump(dict, arquivo)
@@ -60,6 +63,11 @@ def adicionar_produto(estoque, file):
                     print("\n\33[31mProduto precisa estar no estoque\33[0m\n")
             except Exception as e:
                 print(e)
+        
+        else:
+            print("\n\33[31mOpção inválida.\33[0m")
+            adicionar_produto(estoque, file)
+
 
 
 ############################################################
